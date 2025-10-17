@@ -78,7 +78,7 @@ async function showTest() {
             let workImg = works[i].imageUrl; // Transcribes item Picture
             let workType = works[i].categoryId; // Transcribes item type/category
             let workName = works[i].title; // Transcribes item name
-            let idUser = works[i].userId;
+            let workUser = works[i].userId;
 
             // Creating the test items
             //Picture
@@ -95,9 +95,11 @@ async function showTest() {
             workCreation.appendChild(image);
             workCreation.appendChild(name);
             workCreation.id = workID;
-            workCreation.classList.add("Type" + workType);
+            workCreation.classList.add("type" + workType);
 
         }
+
+        
         
     };
     itemProcess();
