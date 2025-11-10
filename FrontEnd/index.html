@@ -9,10 +9,31 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="./javascript/script.js" defer></script>
+	<script src="https://kit.fontawesome.com/dc3463066b.js" crossorigin="anonymous"></script>
+	<script src="./javascript/filters.js" defer></script>
+	<script src="./javascript/edit.js" defer></script>
 
 </head>
 <body>
+	<div class="popup-container">
+		<div class="popup">
+			<div class="popup-title">
+				<p>Galerie Photo</p>
+			</div>
+			<div class="close-cross">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+			<div class="mini-gallery"></div>
+			<div class="line"></div>
+			<div class="add-photo">
+				<p>Ajouter une photo</p>
+			</div>
+
+		</div>
+	</div>
+	<div id="edition">
+		<p>Mode édition</p>
+	</div>
 	<div class="body-container">
 		<header>
 			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -20,7 +41,8 @@
 				<ul>
 					<li>projets</li>
 					<li>contact</li>
-					<li><a href="./assets/pages/login.html">login</a></li>
+					<li id="login"><a href="./assets/pages/login.html">login</a></li>
+					<li id="logout">logout</li>
 					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 				</ul>
 			</nav>
@@ -39,19 +61,24 @@
 			</section>
 			<section id="portfolio">
 				<h2>Mes Projets</h2>
+				<div id="edit">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<p>modifier</p>
+				</div>
+
 				<div id="filters">
-					<div id="all" class="button">
+					<div id="all" class="filter-button">
 						<p>Tous</p>
 					</div>
-					<div id="item" class="button">
+					<div id="item" class="filter-button">
 						<p>Objets</p>
 					</div>
-					<div id="housing" class="button">
+					<div id="housing" class="filter-button">
 						<p>
 							Appartements
 						</p>
 					</div>
-					<div id="business" class="button">
+					<div id="business" class="filter-button">
 						<p>
 							Hotels & restaurants
 						</p>

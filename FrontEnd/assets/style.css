@@ -52,6 +52,7 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 	background-color: #FFFEF8;
+	position: relative;
 }
 
 .body-container {
@@ -221,7 +222,7 @@ footer nav {
 	margin-bottom: 50px;
 }
 
-.button {
+.filter-button {
 	width: auto;
 	font-size: 16px;
 	font-weight: 700;
@@ -275,4 +276,89 @@ footer nav {
 #subButton {
 	padding: 10px 20px 10px 20px;
 	border: 1px solid transparent;
+}
+
+/* Mode Edition */
+
+#edition {
+	background-color: black;
+	color: #FFFEF8;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	display: none;
+}
+
+#logout {
+	display: none;
+}
+#portfolio {
+	position: relative;
+}
+#edit {
+	display: flex;
+	column-gap: 10px;
+	position: absolute;
+	top: 10px;
+	left: 60%;
+}
+
+#edit:hover {
+	cursor: pointer;
+}
+
+.popup-container {
+	position: absolute;
+	z-index: 10;
+	left: 405px;
+	top: 660px;
+	
+}
+.popup {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+	width: 630px;
+	height: 688px;
+	border: 1px solid transparent;
+	border-radius: 16px;
+	
+}
+
+.popup-title {
+	font-size: 26px;
+	font-weight: 400;
+	margin: 50px 0px;
+}
+
+.add-photo {
+	background-color: #1D6154;
+	color: #FFFEF8;
+	padding: 10px 60px;
+	border-radius: 20px;
+}
+.add-photo:hover {
+	cursor: pointer;
+}
+
+.close-cross {
+	position: absolute;
+	right: 30px;
+	top: 30px;
+}
+.close-cross:hover {
+	cursor: pointer;
+}
+
+.line {
+	height: 1px;
+	width: 420px;
+	background-color: #B3B3B3;
+	margin: 40px 0px;
+}
+
+.mini-gallery {
+	height: 400px;
 }

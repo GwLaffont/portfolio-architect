@@ -49,7 +49,7 @@ fetchWorks();
 
 
 // Creating the container array for the buttons
-const allButtons = document.querySelectorAll('.button');
+const allButtons = document.querySelectorAll('.filter-button');
 
 //For every element (button) in allButtons
 allButtons.forEach(button => {
@@ -63,7 +63,7 @@ allButtons.forEach(button => {
         //adds active class
         button.classList.add('active');
         // Call the showtest function
-        showTest();
+        
     });
 });
 
@@ -81,6 +81,7 @@ async function showTest() {
     console.log(works);
     //console.log(worksLength);
     
+    //Can delete the itemprocess function?
     function itemProcess(){
         for (i = 0; i < worksLength; i++) {
             //console.log("test");
@@ -129,6 +130,7 @@ async function showTest() {
 
     //Selecting all created items
     const allItems = document.querySelectorAll(".gallery figure");
+    console.log('allItems', allItems);
 
     //Hiding created items to put filters in place
     function hideAll() {
@@ -152,6 +154,7 @@ async function showTest() {
     let allPicItems = document.getElementsByClassName('type1');
     let allPicHousing = document.getElementsByClassName('type2');
     let allPicBusiness = document.getElementsByClassName('type3');
+    let allPicObjects = document.getElementsByClassName('workItems');
 
     //Showing the filtered items
     
@@ -179,7 +182,7 @@ async function showTest() {
             allPicBusiness[i].style.display = 'block';
         }
     }; 
-    // All Items (creates unlimited copies?)
+    // All Items (creates unlimited copies?)(Réinitialiser la variable)
     let buttonZero = allButtons[0];
     let buttonAll = buttonZero.classList.contains("active");
     if (buttonAll) {
