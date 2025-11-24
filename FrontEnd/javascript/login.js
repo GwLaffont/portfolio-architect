@@ -42,29 +42,26 @@ sButton.addEventListener('click', (event) => {
         console.log(user);
 
         if (user) {
-            //Extracting user ID and user token from the server reply
-            let userID = user.userId;
-            console.log("User ID: ", userID);
+            //Extracting user token from the server reply
             let userToken = user.token;
             console.log("User Token: ", userToken);
 
             
             // If there is a match, store data within browser
-            localStorage.setItem(userID, userToken);
+            localStorage.setItem("userID", userToken);
             console.log("connexion reussie");
             console.log(localStorage);
             
-            /* Error message when redirecting
+            //Error message when redirecting
             // Redirect to home page after 0.5s second
             setTimeout(() => {
-                window.location.href = '../index.html';
+                window.location.href = '/index.html';
             }, 500);
-            */
+            
            /*  Try 2: Same error message about security policy directive
            window.location.replace("../index.html");
            */
-            
-        } else {
+        } else { //Doesn't show?
             alert("Erreur dans l\'identifiant ou le mot de passe");
         }
     };

@@ -21,11 +21,11 @@
 
 	</div>
 	<div class="popup-container">
-		<div class="popup">
+		<div class="popup pop1">
 			<div class="popup-title">
 				<p>Galerie Photo</p>
 			</div>
-			<div class="close-cross">
+			<div class="close close-cross">
 				<i class="fa-solid fa-xmark"></i>
 			</div>
 			<div class="mini-gallery"></div>
@@ -33,6 +33,45 @@
 			<div class="add-photo">
 				<p>Ajouter une photo</p>
 			</div>
+
+		</div>
+		<div class="popup pop2">
+			<div class="back-arrow">
+				<i class="fa-solid fa-arrow-left"></i>
+			</div>
+			<div class="popup-title">
+				<p>Ajout Photo</p>
+			</div>
+			<div class="close close-cross-2">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+
+			<form name="uploadForm" class="add-photo-form">
+			<div class="worksForm">
+				<input id="uploadInput" type="file" multiple />
+				<label for="uploadInput" class="photoLabel">
+					<p class="photoLogo"><i class="fa-regular fa-image"></i></p>
+					<p class="addPhoto">+ Ajouter Photo</p>
+					<p class="photoType">jpg, png : 4mo max</p>
+				</label><br>
+				<label for="workTitle">Titre</label>
+  				<input type="text" id="workTitle" name="work title"><br>
+
+				<label for="work-select">Catégorie</label>
+				<select name="works" id="work-select">
+				<option value=""></option>
+				<option value="1">Objets</option>
+				<option value="2">Appartements</option>
+				<option value="3">Hotels & Restaurants</option>
+				</select>
+
+			</div>
+			<div class="line"></div>
+			<div class="button-wrap">
+				<input type="submit" value="Valider" class="addWork"/>
+			</div>
+			
+			</form>
 
 		</div>
 	</div>
