@@ -47,29 +47,32 @@
 			</div>
 
 			<form name="uploadForm" class="add-photo-form">
-			<div class="worksForm">
-				<input id="uploadInput" type="file" multiple />
-				<label for="uploadInput" class="photoLabel">
-					<p class="photoLogo"><i class="fa-regular fa-image"></i></p>
-					<p class="addPhoto">+ Ajouter Photo</p>
-					<p class="photoType">jpg, png : 4mo max</p>
-				</label><br>
-				<label for="workTitle">Titre</label>
-  				<input type="text" id="workTitle" name="work title"><br>
+				<div class="worksForm">
+					<input id="uploadInput" type="file" name="work-photo" multiple />
+					<label for="uploadInput" class="photoLabel">
+						
+						<img id="img-output"/>
+						
+						<p class="photoLogo"><i class="fa-regular fa-image"></i></p>
+						<p class="addPhoto">+ Ajouter Photo</p>
+						<p class="photoType">jpg, png : 4mo max</p>
+					</label><br>
+					<label for="workTitle">Titre</label>
+					<input type="text" id="workTitle" name="work-title"><br>
 
-				<label for="work-select">Catégorie</label>
-				<select name="works" id="work-select">
-				<option value=""></option>
-				<option value="1">Objets</option>
-				<option value="2">Appartements</option>
-				<option value="3">Hotels & Restaurants</option>
-				</select>
+					<label for="work-select">Catégorie</label>
+					<select name="works" id="work-select">
+						<option value=""></option>
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+						<option value="3">Hotels & Restaurants</option>
+					</select>
 
-			</div>
-			<div class="line"></div>
-			<div class="button-wrap">
-				<input type="submit" value="Valider" class="addWork"/>
-			</div>
+				</div>
+				<div class="line"></div>
+				<div class="button-wrap">
+					<input type="submit" value="Valider" class="addWork"/>
+				</div>
 			
 			</form>
 

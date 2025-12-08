@@ -453,6 +453,12 @@ input[type=file] {
 	background-color: #E8F1F6;
 	width: 420px;
 	height: 169px;
+	position: relative;
+}
+
+.photoLabel img {
+	position: absolute;
+	height: 169px;
 }
 
 .photoLogo {

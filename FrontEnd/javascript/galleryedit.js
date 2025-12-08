@@ -52,43 +52,167 @@ console.log(token);
 //Selection by delegation
 let miniGallery = document.getElementsByClassName('mini-gallery')[0];
 
+//Creating Holder values
+let deleteID;
+
 miniGallery.addEventListener('click', (e) => {
     if (e.target.classList.contains('minipic')) {
-        console.log('deletion!!!');
+
         //Obtained clicked item's ID
         let targetID = e.target.id;
-        console.log( "http://localhost:5678/api/works" + "/" + targetID);
+
         //creating target's URL
         let deleteTarget = "http://localhost:5678/api/works" + "/" + targetID;
-        console.log(deleteTarget);
 
-        /*
-        let erase = {
-            method: "DELETE",
-            headers: {
-                header: 'content-type: application/json',
-                authorization: 'Bearer ${token}',
-            }
-            
-        };
-        
+        //Filling the holder with the deletion address
+        deleteID = deleteTarget;
 
-        fetch(deleteTarget, erase);*/
-        
-        // Creating an async function to work with the server
-        async function deletion () {
-            //Selecting the target's URL
-           const response = await fetch( deleteTarget , {
-                //Choosing the method
-                method : "DELETE",
-                headers : {
-                //Declaring the authorization
-                "Authorization": `Bearer ${token}`
-                }
-            });
-            console.log(response);
-        }
-        deletion(); // DOesn't actualize to show the new picture list
+        //Calling the deletion function
+        //deletion();
+
+        //Deleting HTML elements from the miniature gallery
+        //miniRemove(e);
+
+        //Deleting elements from the main gallery
+        galleryRemove(e);
         
     }
 })
+
+//Removing Mini Gallery Element
+function miniRemove(e){
+    //naming the target element
+    let element = e.target;
+    //using the remove function
+    element.remove();
+}
+
+//Removing elements from the main gallery
+function galleryRemove(e){
+    /*
+    //getting the ID from the selected miniature picture
+    let mainID = e.target.id;
+    let mainTarget = document.getElementById(mainID);
+    console.log(mainID);
+    console.log(mainTarget);
+    //targetting the corresponding picture from the main gallery
+    return mainTarget.parentNode.removeChild(mainTarget);
+
+    Only affects mini Gallery
+    */
+    let mainID = e.target.id;
+    //let container = document.getElementsByClassName("gallery")[0];
+    //let deletionTarget = container.getElementById(mainID);
+    let container = document.querySelector(".gallery");
+    let deletionTarget = container.getElementById(`#${CSS.escape(mainID)}`)
+    console.log(deletionTarget);
+    deletionTarget.style.display = 'none';
+}
+
+
+// Creating an async function to work with the server
+async function deletion () {
+    //Selecting the target's URL
+    const response = await fetch( deleteID , {
+        //Choosing the method
+        method : "DELETE",
+        headers : {
+        //Declaring the authorization
+        "Authorization": `Bearer ${token}`
+        }
+    });
+    console.log(response);
+}
+
+
+// Sélectionne l'élément
+//const element = document.getElementById('monId');
+
+// Supprime directement l'élément du DOM
+//element.remove();
+
+
+//Creating preview image
+const preview = document.querySelector("img");
+const imgInput = document.getElementById('uploadInput');
+
+
+imgInput.addEventListener("change", () => {
+
+    //Selecting target to generate preview image
+    const imgPreview = document.getElementById('img-output');
+
+    //Rendering preview image
+    imgPreview.src = URL.createObjectURL(event.target.files[0]);
+
+});
+
+
+/*
+imgInput.addEventListener("change", () => {
+    //target input
+    const file = imgInput.files[0];
+    //clear previous input
+    imgPreview.textContent = ""; 
+    // Read the file
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+        // convert image file to base64 string
+        preview.src = reader.result;
+    });
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+})
+*/
+
+
+// Collecting form information
+
+const formInfo = document.getElementsByClassName('add-photo-form')[0];
+
+//Creating content holder
+let newWork;
+
+//Creating the information collection function
+formInfo.addEventListener("submit", () => {
+    let workSelect = document.getElementById('work-select');
+    let selectedWork = workSelect.value;
+    //deactivating auto-refresh
+    event.preventDefault();
+    //creating new work
+    newWork = {
+        id: 20,
+        title: event.target.querySelector("[name=work-title]").value,
+        imageUrl: event.target.querySelector("[name=work-photo]").value,
+        categoryId: selectedWork,
+        userId: 0
+    };
+    //Generating dropdown menu information
+    
+    console.log(newWork);
+
+    createWork();
+})
+
+//Turning the contents of the new work into strings
+const workString = JSON.stringify(newWork);
+
+// Sending new works to the database
+async function createWork() {
+    //Selecting the target's URL
+    const createdWork = await fetch("http://localhost:5678/api/works", {
+        //Choosing the method
+        method: "POST",
+        headers: {
+            //Declaring the authorization
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        body: workString
+    });
+    console.log(createdWork);
+    
+}

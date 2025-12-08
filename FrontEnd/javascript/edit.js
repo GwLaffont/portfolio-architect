@@ -84,7 +84,13 @@ logOutButton.addEventListener('click', () => {
     window.location.reload();
 });
 
+//Closing the modal window if clicking the BG
 
+darkBG.addEventListener('click' , () => {
+    popWindow.style.display = 'none';
+    darkBG.style.display = 'none';
+    popTwo.style.display = 'none';
+})
 
 //If not logged in (probably not needed)
 //if (currentUser == null){};
