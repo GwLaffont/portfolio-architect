@@ -27,7 +27,8 @@ async function gallery() {
         gallery.appendChild(workCreation);
         workCreation.appendChild(image);
         workCreation.classList.add("minipic");
-        workCreation.id = workID;
+        workCreation.id = workID + "-mod";
+        //Set a different ID
     };
 
 };
@@ -68,10 +69,10 @@ miniGallery.addEventListener('click', (e) => {
         deleteID = deleteTarget;
 
         //Calling the deletion function
-        //deletion();
+        deletion();
 
         //Deleting HTML elements from the miniature gallery
-        //miniRemove(e);
+        miniRemove(e);
 
         //Deleting elements from the main gallery
         galleryRemove(e);
@@ -87,9 +88,26 @@ function miniRemove(e){
     element.remove();
 }
 
+//Removing Main Gallery Element
+function galleryRemove(e){
+    //fetchign the id of target element
+    let element = e.target.id;
+    console.log(element);
+    //getting the ID of the original element
+    let elemeReplace = element.replace("-mod", "");
+    console.log(elemeReplace);
+    // Fetching the corresponding gallery element
+    let mainID = document.querySelector(`#${CSS.escape(elemeReplace)}`);
+    console.log(mainID);
+    //using the remove function
+    mainID.remove();
+
+};
+
+/*
 //Removing elements from the main gallery
 function galleryRemove(e){
-    /*
+    
     //getting the ID from the selected miniature picture
     let mainID = e.target.id;
     let mainTarget = document.getElementById(mainID);
@@ -99,7 +117,7 @@ function galleryRemove(e){
     return mainTarget.parentNode.removeChild(mainTarget);
 
     Only affects mini Gallery
-    */
+    
     let mainID = e.target.id;
     //let container = document.getElementsByClassName("gallery")[0];
     //let deletionTarget = container.getElementById(mainID);
@@ -107,7 +125,9 @@ function galleryRemove(e){
     let deletionTarget = container.getElementById(`#${CSS.escape(mainID)}`)
     console.log(deletionTarget);
     deletionTarget.style.display = 'none';
-}
+    
+    //originTarget.style.display = 'none';
+}*/
 
 
 // Creating an async function to work with the server
@@ -168,40 +188,67 @@ imgInput.addEventListener("change", () => {
 })
 */
 
+//Declaring the variable for the form
 
-// Collecting form information
+const formInfo = document.getElementById('uploadForm')
 
-const formInfo = document.getElementsByClassName('add-photo-form')[0];
-
-//Creating content holder
-let newWork;
-
-//Creating the information collection function
+//Making the submit button functionnal
 formInfo.addEventListener("submit", () => {
-    let workSelect = document.getElementById('work-select');
-    let selectedWork = workSelect.value;
+    
     //deactivating auto-refresh
     event.preventDefault();
     //creating new work
+
+    /*
     newWork = {
-        id: 20,
         title: event.target.querySelector("[name=work-title]").value,
-        imageUrl: event.target.querySelector("[name=work-photo]").value,
-        categoryId: selectedWork,
-        userId: 0
+        image: event.target.querySelector("[name=work-photo]").value, //send picture instead of string (see Formdata?)
+        category: selectedWork,
     };
+    */
     //Generating dropdown menu information
     
-    console.log(newWork);
+    //console.log(newWork);
+    //Turning the contents of the new work into strings
+    //const workString = JSON.stringify(newWork);
+
+    //createWork(workString);
 
     createWork();
 })
 
-//Turning the contents of the new work into strings
-const workString = JSON.stringify(newWork);
+
 
 // Sending new works to the database
 async function createWork() {
+
+    //Extracting the image from the form
+    const fileInput = document.querySelector('#uploadInput');
+    const file = fileInput.files[0];
+    console.log("Image file", file);
+
+    //Turning it into a FormData object
+    const formData = new FormData();
+    formData.append('image', file);
+    console.log("Form Data:", formData);
+
+    //Extracting the title
+    const title = document.querySelector('#workTitle').value;
+    console.log("title:", title)
+
+    //Extracting item category
+    const workSelect = document.getElementById('work-select').value;
+    console.log("selected work:", workSelect);
+
+    console.log("token:", token);
+
+    //creating the body of the sent object
+    const newWork = {
+        title: title,
+        image: formData,
+        category: workSelect,
+    };
+
     //Selecting the target's URL
     const createdWork = await fetch("http://localhost:5678/api/works", {
         //Choosing the method
@@ -211,8 +258,12 @@ async function createWork() {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json",
         },
-        body: workString
+        body: JSON.stringify(newWork)
     });
     console.log(createdWork);
     
 }
+
+
+// collecting form info using formdata
+

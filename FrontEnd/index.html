@@ -13,6 +13,7 @@
 	<script src="./javascript/filters.js" defer></script>
 	<script src="./javascript/edit.js" defer></script>
 	<script src="./javascript/galleryedit.js" defer></script>
+	<script src="./javascript/forminput.js" defer></script>
 
 
 </head>
@@ -46,7 +47,7 @@
 				<i class="fa-solid fa-xmark"></i>
 			</div>
 
-			<form name="uploadForm" class="add-photo-form">
+			<form name="uploadForm" class="add-photo-form" id="uploadForm">
 				<div class="worksForm">
 					<input id="uploadInput" type="file" name="work-photo" multiple />
 					<label for="uploadInput" class="photoLabel">
@@ -58,14 +59,11 @@
 						<p class="photoType">jpg, png : 4mo max</p>
 					</label><br>
 					<label for="workTitle">Titre</label>
-					<input type="text" id="workTitle" name="work-title"><br>
+					<input type="text" id="workTitle" name="title"><br>
 
 					<label for="work-select">Catégorie</label>
-					<select name="works" id="work-select">
+					<select name="categoryId" id="work-select">
 						<option value=""></option>
-						<option value="1">Objets</option>
-						<option value="2">Appartements</option>
-						<option value="3">Hotels & Restaurants</option>
 					</select>
 
 				</div>
