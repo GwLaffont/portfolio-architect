@@ -12,6 +12,15 @@ exports.create = async (req, res) => {
 	const categoryId = req.body.category;
 	const userId = req.auth.userId;
 	const imageUrl = `${req.protocol}://${host}/images/${req.file.filename}`;
+
+	console.log('req.body:', req.body);
+	console.log('req.file:', req.file);
+	console.log('userId:', userId);
+	console.log('categoryId:', categoryId);
+	console.log('imageUrl:', imageUrl);
+
+	
+	
 	try{
 		const work = await Works.create({
 			title,

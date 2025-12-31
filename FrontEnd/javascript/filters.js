@@ -1,11 +1,4 @@
-/*
-TODO LIst:
 
--Active Buttosn Filter
--Event listener if active?
--On activation, show items ONCE
--Use filter methos for display?
-*/
 
 // Creating the container array for the buttons
 const allButtons = document.querySelectorAll('.filter-button');
@@ -25,11 +18,6 @@ async function showTest() {
     //console.log(worksLength);
     
     for (i = 0; i < worksLength; i++) {
-        //console.log("test");
-        //let testVariable = works[i];
-        //console.log(testVariable);
-        //let testPicture = works[i].imageUrl;
-        //console.log(testPicture);
 
         //creation of a container for each article
         const workCreation = document.createElement("figure");
@@ -39,7 +27,6 @@ async function showTest() {
         let workImg = works[i].imageUrl; // Transcribes item Picture
         let workType = works[i].categoryId; // Transcribes item type/category
         let workName = works[i].title; // Transcribes item name
-        let workUser = works[i].userId;
 
         // Creating the test items
         //Picture
@@ -130,12 +117,43 @@ async function showTest() {
             
         });
     });
-
-    
-    
     
 };
 showTest();
+
+//Miniature gallery
+async function smallGallery() {
+    //making a 'fetch' request to obtain the 'works' from the API
+    let response = await fetch("http://localhost:5678/api/works");
+
+    //request result in json format
+    let works = await response.json(); // Holds the array of data
+
+    //creating variable to determine for loop length
+    let worksLength = works.length;
+
+    //targeting container
+    let miniGallery = document.getElementsByClassName('mini-gallery')[0];
+
+    //generating the pictures (mini gallery)
+    for (i = 0; i < worksLength; i++) {
+        //creation of a container for each article
+        let workCreation = document.createElement("figure");
+        let workImg = works[i].imageUrl; // Transcribes item Picture
+        let workID = works[i].id; // Transcribes item ID
+        // Creating the test items
+        //Picture
+        let image = document.createElement("img");
+        image.src = workImg;
+        //attaching the test items
+        miniGallery.appendChild(workCreation);
+        workCreation.appendChild(image);
+        workCreation.classList.add("minipic");
+        workCreation.id = workID + "-mod";
+        //Set a different ID
+    };
+}
+smallGallery();
 
 
 

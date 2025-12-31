@@ -1,4 +1,4 @@
-// Fetching project categories form the database
+// Fetching project categories from the database
 
 async function categoryFetch () {
     //making a 'fetch' request to obtain the 'categories' from the API
@@ -9,87 +9,29 @@ async function categoryFetch () {
 
     console.log("categories:", categories)
     console.log("category length:", categoryLength);
-    
-    /*
-    //Setting up a collector array
 
-    const collector = [];
-
-    // Fetch the different worktypes within the works database : Doesn't extract a category if a type is deleted?
-    for (i = 0; i < worksLength; i++) {
-        //Collecting work types from the request result
-        let workType = works[i].categoryId;
-        //Pushing the results in the collector array
-        let count = collector.push(workType);
-    };
-    
-    console.log("collector array:", collector);
-
-    //Sorting out unique values in a new array
-    let unique = [...new Set(collector)];
-
-    console.log("Sorted Array:", unique);
-    */
 
     //Setting up the target area for insertion
     const targetArea = document.getElementById('work-select');
 
-    // Setting up a for loop to process the contents of the array
-    for (i = 0; i < categoryLength; i++) {
+    // Clear any existing options
+    targetArea.innerHTML = '';
 
-        //Creating a container for each option
-        const optionCreation = document.createElement("option");
+    // Add a default option
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Sélectionnez une catégorie";
+    targetArea.appendChild(defaultOption);
 
-        //Extracting the values from the array
-        let variableID = categories[i].id;
-        let variableName = categories[i].name;
-        let name = document.createElement("p");
-        name.innerText = variableName;
-
-        //Inserting the containers in the targeted area
-        targetArea.appendChild(optionCreation);
-
-        //Attaching the values to the created containers
-        optionCreation.appendChild(name);
-        optionCreation.id = variableID;
-        
-
-    };
+    // Loop through categories
+    categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category.id; // Set value to the category ID
+        option.textContent = category.name; // Set text to the category name
+        targetArea.appendChild(option);
+    });
 };
 categoryFetch();
-
-
-
-/*
-//Checking the form for input
-
-function checkInput () {
-
-    //setting up the variables
-    
-    //disabling the submit button
-    //submitButton.disabled = true
-
-    const formElements = document.forms["uploadForm"].elements;
-
-    if (imgSubmit === 0) {
-        submitButton.disabled = true;
-        return
-    }
-    else if (titleSubmit === 0 ) {
-        submitButton.disabled = true;
-        return
-    }
-    else if (categorySelect === 0) {
-        submitButton.disabled = true;
-        return
-    }
-
-
-
-    
-};
-checkInput()*/
 
 // Setting up variables
 
@@ -104,23 +46,16 @@ const workSelect = document.getElementById('work-select').value;
 //disabing the submit button
 submitButton.disabled = true;
 
-/*
+
 //styling the disabled button: Color doesn't really change?
 if (submitButton.disabled === true) {
     submitButton.style.background = '#A7A7A7';
 } else if (submitButton.disabled === true) {
     submitButton.style.background = '#1D6154';
-}*/
+};
 
 form.addEventListener('keypress', () => {
     if (fileInput === "" && title === "" && workSelect === "") {
         submitButton.disabled = false
     }
 })
-
-//Testing the button
- /*
-submitButton.addEventListener('click', () => {
-    console.log("test test");
-    console.log("testing values:", fileInput);
-})*/

@@ -92,21 +92,3 @@ darkBG.addEventListener('click' , () => {
     popTwo.style.display = 'none';
 })
 
-//If not logged in (probably not needed)
-//if (currentUser == null){};
-
-//If logged in
-/*
-if (currentUser){
-
-    logHeader.style.display = 'block';
-    logInButton.style.display = 'none';
-    logOutButton.style.display = 'block';
-    filterButton.style.display = 'none';
-    editButton.style.display = 'block';
-};
-*/
-
-
-// Deleting items from local storage
-// localStorage.clear();
