@@ -7,8 +7,6 @@ async function categoryFetch () {
     let categories = await response.json(); // Holds the array of data
     let categoryLength = categories.length;
 
-    console.log("categories:", categories)
-    console.log("category length:", categoryLength);
 
 
     //Setting up the target area for insertion

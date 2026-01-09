@@ -17,31 +17,26 @@ let closeAdd = document.getElementsByClassName('close-cross-2')[0];
 // Making the Edit button functionnal
 
 editButton.addEventListener('click', () => {
-    console.log('click');
     popWindow.style.display = 'flex';
     darkBG.style.display = 'block';
 })
 
 closeEdit.addEventListener('click', () => {
-    console.log('click');
     popWindow.style.display = 'none';
     darkBG.style.display = 'none';
 })
 
 addOpen.addEventListener('click', () => {
-    console.log('click');
     popWindow.style.display = 'none';
     popTwo.style.display = 'flex';
 })
 
 addReturn.addEventListener('click', () => {
-    console.log('click');
     popWindow.style.display = 'flex';
     popTwo.style.display = 'none';
 })
 
 closeAdd.addEventListener('click', () => {
-    console.log('click');
     popWindow.style.display = 'none';
     popTwo.style.display = 'none';
     darkBG.style.display = 'none';
@@ -55,14 +50,12 @@ function editMode() {
     const token = localStorage.getItem('userID');
     //If there is a login token, switch to edit mode
     if (token) {
-        console.log('connected')
         logHeader.style.display = 'flex';
         logInButton.style.display = 'none';
         logOutButton.style.display = 'block';
         filterButton.style.display = 'none';
         editButton.style.display = 'flex';
     } else {
-        console.log('not connected')
         logHeader.style.display = 'none';
         logInButton.style.display = 'block';
         logOutButton.style.display = 'none';
@@ -73,8 +66,6 @@ function editMode() {
 editMode();
 
 function addMode(){};
-
-console.log(localStorage);
 
 //Making the logout button functionnal
 logOutButton.addEventListener('click', () => {    

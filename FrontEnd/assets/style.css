@@ -240,9 +240,6 @@ main {
 	width: 20px;
 }
 
-.header-list {
-	
-}
 
 /* Filter buttons*/
 #filters {
@@ -255,6 +252,7 @@ main {
 }
 
 .filter-button {
+	cursor: pointer;
 	width: auto;
 	font-size: 16px;
 	font-weight: 700;

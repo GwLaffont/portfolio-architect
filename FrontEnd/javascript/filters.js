@@ -1,60 +1,48 @@
 
+//Selecting all created items in the gallery
+const allItems = document.getElementsByClassName('workItems');
+console.log('all items:', allItems);
 
-// Creating the container array for the buttons
-const allButtons = document.querySelectorAll('.filter-button');
-
-async function showTest() {
-
-    //making a 'fetch' request to obtain the 'works' from the API
-    let response = await fetch("http://localhost:5678/api/works");
+// Fetching the filter categories from the API
+async function fetchFilter () {
+    //making a 'fetch' request to obtain the 'categories' from the API
+    let response = await fetch("http://localhost:5678/api/categories");
     //request result in json format
-    let works = await response.json(); // Holds the array of data
-    let worksLength = works.length; // Length = 11
+    let categories = await response.json(); // Holds the array of data
+    let categoryLength = categories.length;
 
-    //Creating the container for the new articles
-    const gallery = document.getElementsByClassName("gallery")[0];
+    console.log("categories:", categories)
+    console.log("category length:", categoryLength);
 
-    console.log(works);
-    //console.log(worksLength);
-    
-    for (i = 0; i < worksLength; i++) {
+    //Setting up the target area for insertion
+    const targetArea = document.getElementById('filters');
 
-        //creation of a container for each article
-        const workCreation = document.createElement("figure");
+    //Creating the "All" button
+    const allButton = document.createElement("div");
+    allButton.id = "all-filter";
+    allButton.textContent = "Tous";
+    allButton.classList.add("filter-button", "active");
+    targetArea.appendChild(allButton);
 
-        //Defining Varialbles within the array -- Test
-        let workID = works[i].id; // Transcribes item ID
-        let workImg = works[i].imageUrl; // Transcribes item Picture
-        let workType = works[i].categoryId; // Transcribes item type/category
-        let workName = works[i].title; // Transcribes item name
+    //Creating the other category buttons
+    // For each category within the databasee (categories)
+    categories.forEach(category => {
+        const option = document.createElement("div");
+        //Use the escape method to assign variable IDs to each filter button
+        option.id = `${category.id}-filter`;
+        option.textContent = category.name;
+        option.classList.add("filter-button");
+        targetArea.appendChild(option);
+    });
 
-        // Creating the test items
-        //Picture
-        let image = document.createElement("img");
-        image.src = workImg;
-        //Name
-        let name = document.createElement("figcaption");
-        name.innerText = workName;
+    // Creating the container array for the buttons
+    const allButtons = document.querySelectorAll('.filter-button');
+    console.log("All Buttons:",allButtons)
 
-        //attaching the test items
-        gallery.appendChild(workCreation);
-        //console.log(gallery);
-        //console.log(workImg)
-        workCreation.appendChild(image);
-        workCreation.appendChild(name);
-        workCreation.id = workID;
-        workCreation.classList.add("type" + workType);
-        workCreation.classList.add("workItems");
-
-    };
-
-    //Selecting all created items
-    const allItems = document.querySelectorAll(".gallery figure");
-
-    //For every element (button) in allButtons
+    //Triggering on-click effect for every filter button pressed
     allButtons.forEach(button => {
-        //Add an event listener
         button.addEventListener('click', () => {
+            console.log('click');
             //For every button
             allButtons.forEach(allButtons => {
                 //removes active class from all buttons
@@ -63,98 +51,41 @@ async function showTest() {
             //adds active class
             button.classList.add('active');
             // Hiding all unselected images
-            allItems.forEach(allItems => {
-                allItems.style.display = 'none';
-            })
+            for(i = 0; i < allItems.length; i++) {
+                allItems[i].style.display = 'none';
+            };
 
-            
-            //Creating the filter function for the arrays
-            //Creating array filter
-            const filterItems = works.filter((itemFilter) => itemFilter.categoryId == 1);
-            //console.log(filterItems);
-            //creating housing filter
-            const filterHousing = works.filter((housingFilter) => housingFilter.categoryId == 2);
-            //console.log(filterHousing);
-            //Creating business filter
-            const filterBusiness = works.filter((businessFilter) => businessFilter.categoryId == 3);
-            //console.log(filterBusiness);
+            // Show all items if "All" is clicked
+            // If the clicked button is the "All" filter
+            if (button.id === "all-filter") {
+                //Create a copy array of 'allItems', and once per item within
+                Array.from(allItems).forEach(item => {
+                    //make the picture visible
+                    item.style.display = 'block';
+                });
+                //If the All button was the one press, stop the function here
+                return;
+            };
 
-            let allPicItems = document.getElementsByClassName('type1');
-            let allPicHousing = document.getElementsByClassName('type2');
-            let allPicBusiness = document.getElementsByClassName('type3');
+            // Show only items matching the selected category
+            // Extract the original ID from the clicked button
+            const categoryId = button.id.replace("-filter", "");
+            //Use the extracted ID to target the pictures' classes
+            const targetedClass = `type${categoryId}`;
+            //Get the elements matching the selected class
+            const filteredItems = document.getElementsByClassName(targetedClass);
+            //Loop through matching items and make them all visible.
+            Array.from(filteredItems).forEach(item => {
+                item.style.display = 'block';
+            });
+            
+        })
 
-            let buttonZero = allButtons[0];
-            let buttonAll = buttonZero.classList.contains("active");
-            let buttonOne = allButtons[1];
-            let buttonItems = buttonOne.classList.contains("active");
-            let buttonTwo = allButtons[2];
-            let buttonHousing = buttonTwo.classList.contains("active");
-            let buttonThree = allButtons[3];
-            let buttonBusiness = buttonThree.classList.contains("active");
-            
-            for (let i = 0; i < allItems.length; i++){
-                if (buttonItems) {
-                    for (let i = 0; i < filterItems.length; i++){
-                        allPicItems[i].style.display = 'block';
-                    }
-                } else if (buttonHousing) {
-                    for (let i = 0; i < filterHousing.length; i++){
-                        allPicHousing[i].style.display = 'block';
-                    }
-                } else if (buttonBusiness) {
-                    for (let i = 0; i < filterBusiness.length; i++){
-                        allPicBusiness[i].style.display = 'block';
-                    }
-                } else if (buttonAll) {
-                    for (let i = 0; i < allItems.length; i++){
-                        allItems[i].style.display = 'block';
-                    }
-                }
-            }
-            
-            
-            
-            
-        });
-    });
-    
+         
+    })
+        
 };
-showTest();
-
-//Miniature gallery
-async function smallGallery() {
-    //making a 'fetch' request to obtain the 'works' from the API
-    let response = await fetch("http://localhost:5678/api/works");
-
-    //request result in json format
-    let works = await response.json(); // Holds the array of data
-
-    //creating variable to determine for loop length
-    let worksLength = works.length;
-
-    //targeting container
-    let miniGallery = document.getElementsByClassName('mini-gallery')[0];
-
-    //generating the pictures (mini gallery)
-    for (i = 0; i < worksLength; i++) {
-        //creation of a container for each article
-        let workCreation = document.createElement("figure");
-        let workImg = works[i].imageUrl; // Transcribes item Picture
-        let workID = works[i].id; // Transcribes item ID
-        // Creating the test items
-        //Picture
-        let image = document.createElement("img");
-        image.src = workImg;
-        //attaching the test items
-        miniGallery.appendChild(workCreation);
-        workCreation.appendChild(image);
-        workCreation.classList.add("minipic");
-        workCreation.id = workID + "-mod";
-        //Set a different ID
-    };
-}
-smallGallery();
-
+fetchFilter();
 
 
 
