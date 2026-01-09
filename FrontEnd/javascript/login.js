@@ -7,15 +7,11 @@ const sButton = document.getElementById("subButton");
 sButton.addEventListener('click', (event) => {
     //Preventing the page from auto-refreshing when pressing submit
     event.preventDefault()
-    console.log('click');
+
     //logging in the values within the form
     const email = document.getElementById('userEmail').value;
     const password = document.getElementById('pwd').value;
-    console.log('email: ', email);
-    console.log('password: ', password);
-    
-    
-    
+
     // Making a call to the server.
     async function login() {
         const response = await fetch("http://localhost:5678/api/users/login", {
@@ -31,7 +27,6 @@ sButton.addEventListener('click', (event) => {
         })
         //Creating a variable to hold the server's response
         let user = await response.json();
-        console.log(user);
 
         if (!user.token) {
             alert("Erreur dans l\'identifiant ou le mot de passe");
@@ -40,13 +35,9 @@ sButton.addEventListener('click', (event) => {
         
         //Extracting user token from the server reply
         let userToken = user.token;
-        console.log("User Token: ", userToken);
-
         
         // If there is a match, store data within browser
         localStorage.setItem("userID", userToken);
-        console.log("connexion reussie");
-        console.log(localStorage);
         
         // Redirect to home page after 0.5s second
         

@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="https://kit.fontawesome.com/dc3463066b.js" crossorigin="anonymous"></script>
 	<script src="./javascript/filters.js" defer></script>
-	<script src="./javascript/edit.js" defer></script>
+	<script src="./javascript/popup-window.js" defer></script>
 	<script src="./javascript/galleryedit.js" defer></script>
 	<script src="./javascript/forminput.js" defer></script>
 
@@ -31,6 +31,7 @@
 				<i class="fa-solid fa-xmark"></i>
 			</div>
 			<div class="mini-gallery"></div>
+			<div class="add-container"></div>
 			<div class="line"></div>
 			<div class="add-photo">
 				<p>Ajouter une photo</p>
@@ -50,22 +51,25 @@
 
 			<form name="uploadForm" class="add-photo-form" id="uploadForm">
 				<div class="worksForm">
-					<input id="uploadInput" type="file" name="work-photo" multiple />
+					<input id="uploadInput" type="file" name="work-photo" multiple required/>
 					<label for="uploadInput" class="photoLabel">
 						<img id="img-output"/>
 						<p class="photoLogo"><i class="fa-regular fa-image"></i></p>
 						<p class="addPhoto">+ Ajouter Photo</p>
 						<p class="photoType">jpg, png : 4mo max</p>
 					</label><br>
-					<label for="workTitle">Titre</label>
-					<input type="text" id="workTitle" name="title"><br>
+					<label for="workTitle" class="form-subtitle">Titre</label>
+					<input type="text" id="workTitle" name="title" required><br>
 
-					<label for="work-select">Catégorie</label>
-					<select name="categoryId" id="work-select">
+					<label for="work-select" class="form-subtitle">Catégorie</label>
+					<div class="select-wrapper">
+					<select name="categoryId" id="work-select" required>
 						<option value=""></option>
 					</select>
+					<i class="fa-solid fa-chevron-down select-arrow"></i>
 				</div>
-				<div class="line"></div>
+				</div>
+				<div id="submit-line" class="line"></div>
 				<div class="button-wrap">
 					<input type="submit" value="Valider" class="addWork"/>
 				</div>

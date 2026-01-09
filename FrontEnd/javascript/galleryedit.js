@@ -69,7 +69,9 @@ async function deletion (originalTarget) {
         "Authorization": `Bearer ${token}`
         }
     });
+    
     console.log(response);
+    
 }
 
 
@@ -112,7 +114,6 @@ async function createWork() {
     const workSelect = document.getElementById('work-select').value;
     //console.log("selected work:", workSelect);
 
-
     //Extracting the image from the form
     const fileInput = document.querySelector('#uploadInput');
     const file = fileInput.files[0];
@@ -141,7 +142,7 @@ async function createWork() {
         },
         body: sendData, 
     });
-    console.log(createdWork);
+    //console.log(createdWork.json());
     
     if (!createdWork.ok) {
         const error = await createdWork.json();
@@ -149,8 +150,65 @@ async function createWork() {
         throw new Error(`Erreur HTTP: ${createdWork.status}`);
     }
 
+    const newWork = await createdWork.json();
+    // Faire un appel createPreview pour éviter les doublés en utilisant createdWork pour cibler le dernier projet créé
+    createPreview(newWork);
+    previewGallery(newWork);
 
+    // Clearing the form
+    document.getElementById('uploadForm').reset();
+    document.getElementById('img-output').src = '';
+};
 
+function createPreview(data) {
+    // can create image without dupes
+    let miniGallery = document.getElementsByClassName('mini-gallery')[0];
+
+    let workCreation = document.createElement("figure");
+    let workImg = data.imageUrl; // Transcribes item Picture
+    let workID = data.id; // Transcribes item ID
+    // Creating the test items
+    //Picture
+    let image = document.createElement("img");
+    image.src = workImg;
+    //attaching the test items
+    miniGallery.appendChild(workCreation);
+    workCreation.appendChild(image);
+    workCreation.classList.add("minipic");
+    workCreation.id = workID + "-mod";
+};
+
+function previewGallery(data) {
+
+    //Main Gallery
+    let gallery = document.getElementsByClassName('gallery')[0];
+
+    //creation of a container for each article
+    let workCreation = document.createElement("figure");
+
+    //Defining Varialbles within the array -- Test
+    let workID = data.id; // Transcribes item ID
+    let workImg = data.imageUrl; // Transcribes item Picture
+    let workType = data.categoryId; // Transcribes item type/category
+    let workName = data.title; // Transcribes item name
+
+    // Creating the test items
+    //Picture
+    let image = document.createElement("img");
+    image.src = workImg;
+    //Name
+    let name = document.createElement("figcaption");
+    name.innerText = workName;
+
+    //attaching the test items
+    gallery.appendChild(workCreation);
+    //console.log(gallery);
+    //console.log(workImg)
+    workCreation.appendChild(image);
+    workCreation.appendChild(name);
+    workCreation.id = workID;
+    workCreation.classList.add("type" + workType);
+    workCreation.classList.add("workItems");
 }
 
 
